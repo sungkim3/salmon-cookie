@@ -1,8 +1,11 @@
-var listStoreData = document.getElementById('storeData');
-var storeHoursArray = [];
-var customersPerHourArray = [];
-var cookiesPerHourArray = [];
+var nameStoreTitle = document.getElementById('storeTitle');
+var nameStoreTitle2 = document.getElementById('storeTitle2');
+var nameStoreTitle3 = document.getElementById('storeTitle3');
+var nameStoreTitle4 = document.getElementById('storeTitle4');
+var nameStoreTitle5 = document.getElementById('storeTitle5');
 
+var nameStoreTitleArray = [nameStoreTitle, nameStoreTitle2, nameStoreTitle3, nameStoreTitle4, nameStoreTitle5];
+var storeHoursArray = [];
 // store hours between 6AM and 8PM
 function storeHours () {
   for (var i = 6; i < 21; i++) {
@@ -17,12 +20,14 @@ function storeHours () {
       storeHoursArray.push(eveningTime);
     }
   }
+  storeHoursArray.push('Total');
   console.log(storeHoursArray);
 }
 storeHours();
-
 // Pikes Place Store Object
 var pikesPlace = {
+  customersPerHourArray: new Array(),
+  cookiesPerHourArray: new Array(),
   min: 17,
   max: 88,
   avgCookiePerCustomer: 5.2,
@@ -36,26 +41,174 @@ var pikesPlace = {
   fillCustomersPerHourArray: function () {
     for (var i = 6; i < 21; i++) {
       var customerAtHour = this.randomNumberCustomerGenerator();
-      customersPerHourArray.push(customerAtHour);
+      this.customersPerHourArray.push(customerAtHour);
     }
-    return customersPerHourArray;
+    return this.customersPerHourArray;
   },
 // Generates a number of cookies sold per hour based on fillCustomersPerHourArray, returns an array
   numberOfCookiesPerHourGenerator: function () {
-    for (var i = 0; i < customersPerHourArray.length; i++) {
-      var numberOfCookiesPerHour = customersPerHourArray[i] * this.avgCookiePerCustomer;
-      cookiesPerHourArray.push(parseInt(numberOfCookiesPerHour));
+    var sum = 0;
+    for (var i = 0; i < this.customersPerHourArray.length; i++) {
+      var numberOfCookiesPerHour = this.customersPerHourArray[i] * this.avgCookiePerCustomer;
+      this.cookiesPerHourArray.push(parseInt(numberOfCookiesPerHour));
     }
-    return cookiesPerHourArray;
-  },
-  displayStoreData: function () {
-    for (var i = 0; i < storeHoursArray.length; i++) {
-      var newList = document.createElement('li');
-      newList.textContent = storeHoursArray[i] + ': ' + cookiesPerHourArray[i] + ' cookies';
-      document.body.appendChild(newList);
+    for (var i = 0; i < this.cookiesPerHourArray.length; i++) {
+      sum += this.cookiesPerHourArray[i];
     }
+    this.cookiesPerHourArray.push(sum);
+    return this.cookiesPerHourArray;
   },
 };
 console.log(pikesPlace.fillCustomersPerHourArray());
 console.log(pikesPlace.numberOfCookiesPerHourGenerator());
-pikesPlace.displayStoreData();
+
+var seaTac = {
+  customersPerHourArray: new Array(),
+  cookiesPerHourArray: new Array(),
+  min: 6,
+  max: 24,
+  avgCookiePerCustomer: 1.2,
+  name: 'SeaTac Airport',
+  randomNumberCustomerGenerator: function () {
+    var randomNumberOfCustomers = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
+    return randomNumberOfCustomers;
+  },
+  fillCustomersPerHourArray: function () {
+    for (var i = 6; i < 21; i++) {
+      var customerAtHour = this.randomNumberCustomerGenerator();
+      this.customersPerHourArray.push(customerAtHour);
+    }
+    return this.customersPerHourArray;
+  },
+  numberOfCookiesPerHourGenerator: function () {
+    var sum = 0;
+    for (var i = 0; i < this.customersPerHourArray.length; i++) {
+      var numberOfCookiesPerHour = this.customersPerHourArray[i] * this.avgCookiePerCustomer;
+      this.cookiesPerHourArray.push(parseInt(numberOfCookiesPerHour));
+    }
+    for (var i = 0; i < this.cookiesPerHourArray.length; i++) {
+      sum += this.cookiesPerHourArray[i];
+    }
+    this.cookiesPerHourArray.push(sum);
+    return this.cookiesPerHourArray;
+  },
+};
+console.log(seaTac.fillCustomersPerHourArray());
+console.log(seaTac.numberOfCookiesPerHourGenerator());
+
+var southCenter = {
+  customersPerHourArray: new Array(),
+  cookiesPerHourArray: new Array(),
+  min: 11,
+  max: 38,
+  avgCookiePerCustomer: 1.9,
+  name: 'Southcenter',
+  randomNumberCustomerGenerator: function () {
+    var randomNumberOfCustomers = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
+    return randomNumberOfCustomers;
+  },
+  fillCustomersPerHourArray: function () {
+    for (var i = 6; i < 21; i++) {
+      var customerAtHour = this.randomNumberCustomerGenerator();
+      this.customersPerHourArray.push(customerAtHour);
+    }
+    return this.customersPerHourArray;
+  },
+  numberOfCookiesPerHourGenerator: function () {
+    var sum = 0;
+    for (var i = 0; i < this.customersPerHourArray.length; i++) {
+      var numberOfCookiesPerHour = this.customersPerHourArray[i] * this.avgCookiePerCustomer;
+      this.cookiesPerHourArray.push(parseInt(numberOfCookiesPerHour));
+    }
+    for (var i = 0; i < this.cookiesPerHourArray.length; i++) {
+      sum += this.cookiesPerHourArray[i];
+    }
+    this.cookiesPerHourArray.push(sum);
+    return this.cookiesPerHourArray;
+  },
+};
+console.log(southCenter.fillCustomersPerHourArray());
+console.log(southCenter.numberOfCookiesPerHourGenerator());
+
+var bellevueSquare = {
+  customersPerHourArray: new Array(),
+  cookiesPerHourArray: new Array(),
+  min: 20,
+  max: 48,
+  avgCookiePerCustomer: 3.3,
+  name: 'Bellevue Square',
+  randomNumberCustomerGenerator: function () {
+    var randomNumberOfCustomers = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
+    return randomNumberOfCustomers;
+  },
+  fillCustomersPerHourArray: function () {
+    for (var i = 6; i < 21; i++) {
+      var customerAtHour = this.randomNumberCustomerGenerator();
+      this.customersPerHourArray.push(customerAtHour);
+    }
+    return this.customersPerHourArray;
+  },
+  numberOfCookiesPerHourGenerator: function () {
+    var sum = 0;
+    for (var i = 0; i < this.customersPerHourArray.length; i++) {
+      var numberOfCookiesPerHour = this.customersPerHourArray[i] * this.avgCookiePerCustomer;
+      this.cookiesPerHourArray.push(parseInt(numberOfCookiesPerHour));
+    }
+    for (var i = 0; i < this.cookiesPerHourArray.length; i++) {
+      sum += this.cookiesPerHourArray[i];
+    }
+    this.cookiesPerHourArray.push(sum);
+    return this.cookiesPerHourArray;
+  },
+};
+console.log(bellevueSquare.fillCustomersPerHourArray());
+console.log(bellevueSquare.numberOfCookiesPerHourGenerator());
+
+var alki = {
+  customersPerHourArray: new Array(),
+  cookiesPerHourArray: new Array(),
+  min: 3,
+  max: 24,
+  avgCookiePerCustomer: 2.6,
+  name: 'Alki',
+  randomNumberCustomerGenerator: function () {
+    var randomNumberOfCustomers = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
+    return randomNumberOfCustomers;
+  },
+  fillCustomersPerHourArray: function () {
+    for (var i = 6; i < 21; i++) {
+      var customerAtHour = this.randomNumberCustomerGenerator();
+      this.customersPerHourArray.push(customerAtHour);
+    }
+    return this.customersPerHourArray;
+  },
+  numberOfCookiesPerHourGenerator: function () {
+    var sum = 0;
+    for (var i = 0; i < this.customersPerHourArray.length; i++) {
+      var numberOfCookiesPerHour = this.customersPerHourArray[i] * this.avgCookiePerCustomer;
+      this.cookiesPerHourArray.push(parseInt(numberOfCookiesPerHour));
+    }
+    for (var i = 0; i < this.cookiesPerHourArray.length; i++) {
+      sum += this.cookiesPerHourArray[i];
+    }
+    this.cookiesPerHourArray.push(sum);
+    return this.cookiesPerHourArray;
+  },
+};
+console.log(alki.fillCustomersPerHourArray());
+console.log(alki.numberOfCookiesPerHourGenerator());
+
+var storeObjectArray = [pikesPlace, seaTac, southCenter, bellevueSquare, alki];
+
+function displayStoreData() {
+  for (var x = 0; x < storeObjectArray.length; x++) {
+    nameStoreTitleArray[x].textContent = storeObjectArray[x].name;
+    document.body.appendChild(nameStoreTitleArray[x]);
+    for (var i = 0; i < storeHoursArray.length; i++) {
+      var newList = document.createElement('li');
+      newList.textContent = storeHoursArray[i] + ': ' + storeObjectArray[x].cookiesPerHourArray[i] + ' cookies';
+      document.body.appendChild(newList);
+    }
+  }
+}
+displayStoreData();
