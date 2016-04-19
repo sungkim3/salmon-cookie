@@ -3,8 +3,10 @@ var nameStoreTitle2 = document.getElementById('storeTitle2');
 var nameStoreTitle3 = document.getElementById('storeTitle3');
 var nameStoreTitle4 = document.getElementById('storeTitle4');
 var nameStoreTitle5 = document.getElementById('storeTitle5');
-
 var nameStoreTitleArray = [nameStoreTitle, nameStoreTitle2, nameStoreTitle3, nameStoreTitle4, nameStoreTitle5];
+
+var makeStoreTable = document.getElementById('storeTable');
+
 var storeHoursArray = [];
 // store hours between 6AM and 8PM
 function storeHours () {
@@ -204,10 +206,24 @@ function displayStoreData() {
   for (var x = 0; x < storeObjectArray.length; x++) {
     nameStoreTitleArray[x].textContent = storeObjectArray[x].name;
     document.body.appendChild(nameStoreTitleArray[x]);
+
+    var newBorder = document.createElement('hr');
+    document.body.appendChild(newBorder);
+
     for (var i = 0; i < storeHoursArray.length; i++) {
-      var newList = document.createElement('li');
-      newList.textContent = storeHoursArray[i] + ': ' + storeObjectArray[x].cookiesPerHourArray[i] + ' cookies';
-      document.body.appendChild(newList);
+      var newBreak = document.createElement('tr');
+      document.body.appendChild(newBreak);
+
+      var newData = document.createElement('td');
+      newData.textContent = storeHoursArray[i];
+      document.body.appendChild(newData);
+
+      var newData2 = document.createElement('td');
+      newData2.textContent = storeObjectArray[x].cookiesPerHourArray[i];
+      document.body.appendChild(newData2);
+      // var newList = document.createElement('li');
+      // newList.textContent = storeHoursArray[i] + ': ' + storeObjectArray[x].cookiesPerHourArray[i] + ' cookies';
+      // document.body.appendChild(newList);
     }
   }
 }
