@@ -86,5 +86,21 @@ function createBodyRows() {
   }
 };
 
+function inputGoal() {
+  var decision = prompt('Hello, do you have any new stores to enter into the system? Y or N').toUpperCase();
+  if (decision === 'Y' || decision === 'YES') {
+    var newStoreName = prompt('Where is your location?');
+    var newStoreMin = prompt('What is the lowest number of customers expected?');
+    var newStoreMax = prompt('What is the maximum number of customers expected?');
+    var newStoreAvg = prompt('On average, how many cookies per customer do you expect to sell?');
+    var newStore = new Store(newStoreName, newStoreMin, newStoreMax, newStoreAvg);
+  } else if (decision === 'N' || decision === 'NO') {
+    alert('Here is the current store data.');
+  } else {
+    alert('That was not a Y or N response, here is the current store data. Please refresh to input new store data.');
+  }
+}
+
+inputGoal();
 createRowHeader();
 createBodyRows();
