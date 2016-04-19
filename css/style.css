@@ -1,0 +1,51 @@
+* {
+  background-color: rgba(255, 255, 153, 0.3);
+}
+.title {
+  background-color: salmon;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+}
+
+.navBar > li {
+  display: inline;
+  margin-right: 20px;
+  font-family: 'Merriweather', serif;
+}
+.navBar {
+  text-align: center;
+}
+
+.logo {
+  text-align: center;
+}
+
+th {
+  text-transform: uppercase;
+}
+
+h2 {
+  font-family: 'Oswald', sans-serif;
+  margin-bottom: 0px;
+}
+
+td {
+  font-family: Georgia, serif;
+  color: rgb(0, 0, 153);
+  padding: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+p {
+  font-family: Arial, serif;
+  color: rgb(102, 0, 51)
+}
+
+.locationList {
+  background-color: salmon;
+}
+
+.intro {
+  margin-bottom: 40px;
+}
