@@ -1,6 +1,9 @@
 /*p {
   border: solid;
 }*/
+table {
+  border-collapse: collapse;
+}
 
 td {
   border: solid;

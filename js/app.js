@@ -208,6 +208,7 @@ console.log(alki.fillCustomersPerHourArray());
 console.log(alki.numberOfCookiesPerHourGenerator());
 
 var storeObjectArray = [pikesPlace, seaTac, southCenter, bellevueSquare, alki];
+var headingArray = ['Hour of Day', 'Cookies Sold'];
 
 function displayStoreData() {
   for (var x = 0; x < storeObjectArray.length; x++) {
@@ -220,17 +221,27 @@ function displayStoreData() {
     var newTable = document.createElement('table');
     document.body.appendChild(newTable);
 
-    for (var i = 0; i < storeHoursArray.length; i++) {
-      var newRow = document.createElement('tr');
-      newTable.appendChild(newRow);
+    var newRow = document.createElement('tr');
+    newTable.appendChild(newRow);
+    var newRow2 = document.createElement('tr');
+    newTable.appendChild(newRow2);
 
+    var newHeader = document.createElement('th');
+    newHeader.textContent = headingArray[0];
+    newRow.appendChild(newHeader);
+
+    var newHeader2 = document.createElement('th');
+    newHeader2.textContent = headingArray[1];
+    newRow2.appendChild(newHeader2);
+
+    for (var i = 0; i < storeHoursArray.length; i++) {
       var newData = document.createElement('td');
       newData.textContent = storeHoursArray[i];
       newRow.appendChild(newData);
 
       var newData2 = document.createElement('td');
       newData2.textContent = storeObjectArray[x].cookiesPerHourArray[i];
-      newRow.appendChild(newData2);
+      newRow2.appendChild(newData2);
       // var newList = document.createElement('li');
       // newList.textContent = storeHoursArray[i] + ': ' + storeObjectArray[x].cookiesPerHourArray[i] + ' cookies';
       // document.body.appendChild(newList);
