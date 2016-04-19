@@ -73,6 +73,30 @@ function Store(name, min, max, avg) {
 
 var pikesPlace = new Store('Pikes Place Market', 17, 88, 5.2);
 
+function createRows() {
+  var firstRow = document.getElementById('firstRow');
+  for(var i = 0; i < storeHoursArray.length; i++){
+    var th = document.createElement('th');
+    th.textContent = storeHoursArray[i];
+    firstRow.appendChild(th);
+  }
+};
+
+function createBodyRows() {
+  var row = document.getElementById('table-body');
+  var tr = document.createElement('tr');
+  row.appendChild(tr);
+  for (var i = 0; i < storesArray.length; i++) {
+    var tdLabel = document.createElement('td');
+    tdLabel.textContent = storesArray[i].name;
+    tr.appendChild(tdLabel);
+    for (var j = 0; j < storeHoursArray.length; j++) {
+      var td = document.createElement('td');
+      td.textContent = storesArray[i].cookiesPerHourArray[j];
+      tr.appendChild(td);
+    }
+  }
+};
 // pikesPlace.fillCustomersPerHourArray();
 
 // // Pikes Place Store Object
