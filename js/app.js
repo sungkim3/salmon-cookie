@@ -5,6 +5,13 @@ var nameStoreTitle4 = document.getElementById('storeTitle4');
 var nameStoreTitle5 = document.getElementById('storeTitle5');
 var nameStoreTitleArray = [nameStoreTitle, nameStoreTitle2, nameStoreTitle3, nameStoreTitle4, nameStoreTitle5];
 
+var nameStoreData = document.getElementById('storeData');
+var nameStoreData2 = document.getElementById('storeData2');
+var nameStoreData3 = document.getElementById('storeData3');
+var nameStoreData4 = document.getElementById('storeData4');
+var nameStoreData5 = document.getElementById('storeData5');
+var nameStoreDataArray = [nameStoreData, nameStoreData2, nameStoreData3, nameStoreData4, nameStoreData5];
+
 var makeStoreTable = document.getElementById('storeTable');
 
 var storeHoursArray = [];
@@ -210,17 +217,20 @@ function displayStoreData() {
     var newBorder = document.createElement('hr');
     document.body.appendChild(newBorder);
 
+    var newTable = document.createElement('table');
+    document.body.appendChild(newTable);
+
     for (var i = 0; i < storeHoursArray.length; i++) {
-      var newBreak = document.createElement('tr');
-      document.body.appendChild(newBreak);
+      var newRow = document.createElement('tr');
+      newTable.appendChild(newRow);
 
       var newData = document.createElement('td');
       newData.textContent = storeHoursArray[i];
-      document.body.appendChild(newData);
+      newRow.appendChild(newData);
 
       var newData2 = document.createElement('td');
       newData2.textContent = storeObjectArray[x].cookiesPerHourArray[i];
-      document.body.appendChild(newData2);
+      newRow.appendChild(newData2);
       // var newList = document.createElement('li');
       // newList.textContent = storeHoursArray[i] + ': ' + storeObjectArray[x].cookiesPerHourArray[i] + ' cookies';
       // document.body.appendChild(newList);
