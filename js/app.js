@@ -71,6 +71,15 @@ function createRowHeader() {
 };
 var row = document.getElementById('table-body');
 
+// function createOneRow() {
+//   var trEl = document.createElement('tr');
+//   row.appendChild(trEl);
+//   for (var i = 0; i < storeHoursArray - 1; i++) {
+//     var tdEl = document.createElement('td');
+//     tdEl.textContent =
+//   }
+// }
+
 function createBodyRows() {
   for (var i = 0; i < storesArray.length; i++) {
     var tr = document.createElement('tr');
@@ -84,23 +93,59 @@ function createBodyRows() {
       tr.appendChild(td);
     }
   }
+  // because the event listener at the bottom executes createBodyRows again we need to clear the array again
 };
 
-function inputGoal() {
-  var decision = prompt('Hello, do you have any new stores to enter into the system? Y or N').toUpperCase();
-  if (decision === 'Y' || decision === 'YES') {
-    var newStoreName = prompt('Where is your location?');
-    var newStoreMin = prompt('What is the lowest number of customers expected?');
-    var newStoreMax = prompt('What is the maximum number of customers expected?');
-    var newStoreAvg = prompt('On average, how many cookies per customer do you expect to sell?');
-    var newStore = new Store(newStoreName, newStoreMin, newStoreMax, newStoreAvg);
-  } else if (decision === 'N' || decision === 'NO') {
-    alert('Here is the current store data.');
-  } else {
-    alert('That was not a Y or N response, here is the current store data. Please refresh to input new store data.');
-  }
-}
-
-inputGoal();
 createRowHeader();
 createBodyRows();
+
+function clearTable() {
+  var tableBody = document.getElementById('table-body');
+  tableBody.innerHTML = '';
+}
+
+var newStore = document.getElementById('store-name');
+function handleStoreSubmit(event) {
+  console.log(event);
+
+  //prevents page reload on submit or button events!! need to have this.
+  event.preventDefault();
+
+  //event.target.(name).value the name is in reference to the name of the input on html
+  //Ensures that all fields are filled out after the submit event triggers
+  if (!event.target.storename.value || !event.target.mincustomer.value || !event.target.maxcustomer.value || !event.target.avgpercustomer.value) {
+    return alert('Fields cannot be empty.');
+  }
+  for (i = 0; i < storesArray.length; i++) {
+    if (event.target.storename.value !== storesArray[i].name) {
+      // This stores the value from the event submission into a variable
+      var newStoreName = event.target.storename.value;
+      var newStoreMin = event.target.mincustomer.value;
+      var newStoreMax = event.target.maxcustomer.value;
+      var newStoreAvg = event.target.avgpercustomer.value;
+      // This empties out the fields after the submit event occurs
+      event.target.storename.value = null;
+      event.target.mincustomer.value = null;
+      event.target.maxcustomer.value = null;
+      event.target.avgpercustomer.value = null;
+      // Here we are creating the new store with the Store object constructor
+      var createNewStore = new Store(newStoreName, newStoreMin, newStoreMax, newStoreAvg);
+      console.log(createNewStore);
+    } else if (event.target.storename.value === storesArray[i].name) {
+      clearTable();
+      storesArray[i].name = event.target.storename.value;
+      storesArray[i].min = event.target.mincustomer.value;
+      storesArray[i].max = event.target.maxcustomer.value;
+      storesArray[i].avgCookiePerCustomer = event.target.avgpercustomer.value;
+      console.log(storesArray[i]);
+      event.target.storename.value = null;
+      event.target.mincustomer.value = null;
+      event.target.maxcustomer.value = null;
+      event.target.avgpercustomer.value = null;
+
+    }
+  }
+  // createBodyRows();
+}
+// This is the event listener for the submit event
+newStore.addEventListener('submit', handleStoreSubmit);

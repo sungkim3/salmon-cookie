@@ -18,3 +18,9 @@ p {
   font-size: 30px;
   margin-bottom: 0px;
 }
+
+/*
+this can turn a tag through css into a block element
+label{
+  display: block;
+}*/

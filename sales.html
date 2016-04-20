@@ -6,6 +6,25 @@
       <link href='https://fonts.googleapis.com/css?family=Oswald|Merriweather' rel='stylesheet' type='text/css'>
     </head>
     <body>
+      <form id="store-name">
+
+        <label for="storename"> Store Name: </label>
+        <input type="text" name="storename" size="30" maxlength="30" />
+
+        <label for="mincustomer"> Minimum Customers: </label>
+        <input id="store-min" type="text" name="mincustomer" size="5" maxlength="5" />
+
+        <label for="maxcustomer"> Maximum Customers: </label>
+        <input id="store-max" type="text" name="maxcustomer" size="5" maxlength="5" />
+
+        <label for="avgpercustomer"> Avg Cookies/Customer: </label>
+        <input id="store-avg" type="text" name="avgpercustomer" size="5" maxlength="5" />
+
+        <input type="submit" name="submit" value="Submit" />
+
+      </form>
+      </br>
+      </br>
       <table>
         <thead id= "table-header">
           <tr id="firstRow">
@@ -15,6 +34,9 @@
         <tbody id= "table-body">
         </tbody>
       </table>
+      <!-- this br tag is bad form, use CSS with display:block to format a break -->
+      <br/><br/>
+
       <script src="js/app.js"> </script>
     </body>
   </html>
