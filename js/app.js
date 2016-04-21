@@ -17,13 +17,13 @@ function storeHours () {
   storeHoursArray.push('Total');
   console.log(storeHoursArray);
 }
-storeHours();
 
 function randomNumberCustomerGenerator(min, max){
   var randomNumberOfCustomers = Math.floor(Math.random() * (max - min + 1)) + min;
   return randomNumberOfCustomers;
 }
 
+// For brand new Store objects
 function Store(name, min, max, avg) {
   this.customersPerHourArray = new Array();
   this.cookiesPerHourArray = new Array();
@@ -31,7 +31,6 @@ function Store(name, min, max, avg) {
   this.min = min;
   this.max = max;
   this.avgCookiePerCustomer = avg;
-  // var customerAtHour;
 
   this.fillCustomersPerHourArray = function() {
     for (var i = 0; i < storeHoursArray.length - 1; i++) {
@@ -55,11 +54,56 @@ function Store(name, min, max, avg) {
   this.numberOfCookiesPerHourGenerator();
 }
 
+// function CustomersPerHourArray(min, max) {
+//   this = new Array();
+//   for (var i = 0; i < storeHoursArray.length - 1; i++) {
+//     this.push(randomNumberCustomerGenerator(min, max));
+//   }
+// };
+
+// For updating existing Store objects
+function updateStore(index, name, min, max, avg) {
+  storesArray[index].customersPerHourArray = new Array();
+  storesArray[index].cookiesPerHourArray = new Array();
+  storesArray[index].name = name;
+  storesArray[index].min = min;
+  storesArray[index].max = max;
+  storesArray[index].avgCookiePerCustomer = avg;
+  // var customerAtHour;
+
+  storesArray[index].fillCustomersPerHourArray = function(index, min, max) {
+    for (var i = 0; i < storeHoursArray.length - 1; i++) {
+      storesArray[index].customersPerHourArray.push(randomNumberCustomerGenerator(min, max));
+    }
+  };
+
+  storesArray[index].numberOfCookiesPerHourGenerator = function(index, avg) {
+    var sum = 0;
+    for (var i = 0; i < storesArray[index].customersPerHourArray.length; i++) {
+      var numberOfCookiesPerHour = storesArray[index].customersPerHourArray[i] * avg;
+      storesArray[index].cookiesPerHourArray.push(parseInt(numberOfCookiesPerHour));
+    }
+    for (var i = 0; i < storesArray[index].cookiesPerHourArray.length; i++) {
+      sum += storesArray[index].cookiesPerHourArray[i];
+    }
+    storesArray[index].cookiesPerHourArray.push(sum);
+  };
+  storesArray[index].fillCustomersPerHourArray(index, min, max);
+  //storesArray[index].customersPerHourArray = new CustomersPerHourArray(min, max);
+  storesArray[index].numberOfCookiesPerHourGenerator(index, avg);
+}
+
+storeHours();
+
 var pikesPlace = new Store('Pikes Place Market', 17, 88, 5.2);
 var seaTac = new Store('SeaTac Airport', 6, 24, 1.2);
 var southCenter = new Store('Southcenter', 11, 38, 1.9);
 var bellevue = new Store('Bellevue Square', 20, 48, 3.3);
 var alki = new Store('Alki', 3, 24, 2.6);
+
+var mainTable = document.getElementById('main-table');
+var oldTableBody = document.createElement('tbody');
+mainTable.appendChild(oldTableBody);
 
 function createRowHeader() {
   var firstRow = document.getElementById('firstRow');
@@ -68,22 +112,13 @@ function createRowHeader() {
     th.textContent = storeHoursArray[i];
     firstRow.appendChild(th);
   }
-};
-var row = document.getElementById('table-body');
+}
 
-// function createOneRow() {
-//   var trEl = document.createElement('tr');
-//   row.appendChild(trEl);
-//   for (var i = 0; i < storeHoursArray - 1; i++) {
-//     var tdEl = document.createElement('td');
-//     tdEl.textContent =
-//   }
-// }
-
-function createBodyRows() {
+function createBodyRows(tableBodyNode) {
+  console.log('Entering createBodyRows');
   for (var i = 0; i < storesArray.length; i++) {
     var tr = document.createElement('tr');
-    row.appendChild(tr);
+    tableBodyNode.appendChild(tr);
     var tdLabel = document.createElement('td');
     tdLabel.textContent = storesArray[i].name;
     tr.appendChild(tdLabel);
@@ -93,59 +128,85 @@ function createBodyRows() {
       tr.appendChild(td);
     }
   }
-  // because the event listener at the bottom executes createBodyRows again we need to clear the array again
-};
-
-createRowHeader();
-createBodyRows();
-
-function clearTable() {
-  var tableBody = document.getElementById('table-body');
-  tableBody.innerHTML = '';
 }
 
+createRowHeader();
+createBodyRows(oldTableBody);
+
+function resetTable() {
+  var newTableBody = document.createElement('tbody');
+
+  console.log(newTableBody, oldTableBody);
+  oldTableBody.parentNode.replaceChild(newTableBody, oldTableBody);
+  oldTableBody = newTableBody;
+}
+// function emptyTable() {
+//   var emptyHeader = document.getElementById('table-header');
+//   emptyHeader.innerHTML = '';
+// }
+//table
+//thead
+//tbody
+
+//table appendchild thead
+//table appendchild tbody
+
+//if name is duplicate
+//construct newTbody
+//use tbody.parentNode.replaceChild(newTbody, tbody)
+//tbody = newTbody
+
 var newStore = document.getElementById('store-name');
+
 function handleStoreSubmit(event) {
   console.log(event);
-
   //prevents page reload on submit or button events!! need to have this.
   event.preventDefault();
-
   //event.target.(name).value the name is in reference to the name of the input on html
   //Ensures that all fields are filled out after the submit event triggers
-  if (!event.target.storename.value || !event.target.mincustomer.value || !event.target.maxcustomer.value || !event.target.avgpercustomer.value) {
+  if (!event.target.storename.value || !event.target.mincustomer.value ||
+    !event.target.maxcustomer.value || !event.target.avgpercustomer.value) {
     return alert('Fields cannot be empty.');
   }
-  for (i = 0; i < storesArray.length; i++) {
-    if (event.target.storename.value !== storesArray[i].name) {
-      // This stores the value from the event submission into a variable
-      var newStoreName = event.target.storename.value;
-      var newStoreMin = event.target.mincustomer.value;
-      var newStoreMax = event.target.maxcustomer.value;
-      var newStoreAvg = event.target.avgpercustomer.value;
-      // This empties out the fields after the submit event occurs
-      event.target.storename.value = null;
-      event.target.mincustomer.value = null;
-      event.target.maxcustomer.value = null;
-      event.target.avgpercustomer.value = null;
-      // Here we are creating the new store with the Store object constructor
-      var createNewStore = new Store(newStoreName, newStoreMin, newStoreMax, newStoreAvg);
-      console.log(createNewStore);
-    } else if (event.target.storename.value === storesArray[i].name) {
-      clearTable();
-      storesArray[i].name = event.target.storename.value;
-      storesArray[i].min = event.target.mincustomer.value;
-      storesArray[i].max = event.target.maxcustomer.value;
-      storesArray[i].avgCookiePerCustomer = event.target.avgpercustomer.value;
-      console.log(storesArray[i]);
-      event.target.storename.value = null;
-      event.target.mincustomer.value = null;
-      event.target.maxcustomer.value = null;
-      event.target.avgpercustomer.value = null;
+  // This stores the value from the event submission into a variable
+  var newStoreName = event.target.storename.value.toString();
+  var newStoreMin = event.target.mincustomer.value;
+  var newStoreMax = event.target.maxcustomer.value;
+  var newStoreAvg = event.target.avgpercustomer.value;
+  console.log(newStoreName + ', ' + newStoreMin + ', ' + newStoreMax + ', ' + newStoreAvg);
 
+  var storeFound = false;
+  var storeIndex = 0;
+  for (i = 0; i < storesArray.length; i++) {
+    if (newStoreName === storesArray[i].name) {
+      storeFound = true;
+      storeIndex = i;
+      storesArray[i].name = newStoreName;
+      storesArray[i].min = newStoreMin;
+      storesArray[i].max = newStoreMax;
+      storesArray[i].avgCookiePerCustomer = newStoreAvg;
+      // console.log(storesArray[i]);
     }
   }
-  // createBodyRows();
+  if (storeFound) {
+    console.log('Store was found');
+    updateStore(storeIndex, newStoreName, newStoreMin, newStoreMax, newStoreAvg);
+    resetTable();
+    createBodyRows(oldTableBody);
+    console.log(storesArray);
+  }
+  if (!storeFound) {
+    console.log('Store was not found');
+    var createNewStore = new Store(newStoreName, newStoreMin, newStoreMax, newStoreAvg);
+    console.log(createNewStore);
+    resetTable();
+    createBodyRows(oldTableBody);
+  }
+  event.target.storename.value = null;
+  event.target.mincustomer.value = null;
+  event.target.maxcustomer.value = null;
+  event.target.avgpercustomer.value = null;
+
 }
 // This is the event listener for the submit event
 newStore.addEventListener('submit', handleStoreSubmit);
