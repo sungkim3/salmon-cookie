@@ -15,7 +15,7 @@ function storeHours () {
     }
   }
   storeHoursArray.push('Total');
-  console.log(storeHoursArray);
+  // console.log(storeHoursArray);
 }
 
 // For generating a random number with minimum and maximum values inclusively
@@ -29,8 +29,8 @@ function fillCustomersPerHourArray(index, min, max, customersPerHourArray) {
   for (var i = 0; i < storeHoursArray.length - 1; i++) {
     customersPerHourArray.push(randomNumberCustomerGenerator(min, max));
   }
-  // console.log(customersPerHourArray);
-};
+  console.log(customersPerHourArray);
+}
 
 // For generating number of cookies per hour based on customer averages and fills an array, also totals the sum
 function numberOfCookiesPerHourGenerator(index, avgCookiePerCustomer, customersPerHourArray, cookiesPerHourArray) {
@@ -44,7 +44,7 @@ function numberOfCookiesPerHourGenerator(index, avgCookiePerCustomer, customersP
     sum += cookiesPerHourArray[i];
   }
   cookiesPerHourArray.push(sum);
-};
+}
 
 // For brand new Store objects
 function Store(name, min, max, avg) {
@@ -104,24 +104,24 @@ function resetTable() {
   oldTableBody = newTableBody;
 }
 
-// Handles the submit event by updating exisiting store data or adding new store data
+// Handles the submit event by updating existing store data or adding new store data
 function handleStoreSubmit(event) {
   // console.log(event);
-  //prevents page reload on submit or button events!! need to have this.
+  // prevents page reload on submit or button events!! need to have this.
   event.preventDefault();
-  //event.target.(name).value the name is in reference to the name of the input on html
-  //Ensures that all fields are filled out after the submit event triggers
+  // event.target.(name).value the name is in reference to the name of the input on html
+  // Ensures that all fields are filled out after the submit event triggers
   if (!event.target.storename.value || !event.target.mincustomer.value ||
     !event.target.maxcustomer.value || !event.target.avgpercustomer.value) {
     return alert('Fields cannot be empty.');
   }
   // This stores the value from the event submission into a variable
   var newStoreName = event.target.storename.value.toString();
-  var newStoreMin = event.target.mincustomer.value;
-  var newStoreMax = event.target.maxcustomer.value;
-  var newStoreAvg = event.target.avgpercustomer.value;
+  var newStoreMin = parseFloat(event.target.mincustomer.value);
+  var newStoreMax = parseFloat(event.target.maxcustomer.value);
+  var newStoreAvg = parseFloat(event.target.avgpercustomer.value);
   // console.log(newStoreName + ', ' + newStoreMin + ', ' + newStoreMax + ', ' + newStoreAvg);
-
+  // Compares existing store object names with submitted store name, validates with a flag
   var storeFound = false;
   var storeIndex = 0;
   for (i = 0; i < storesArray.length; i++) {
