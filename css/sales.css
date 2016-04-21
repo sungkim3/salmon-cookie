@@ -9,7 +9,7 @@ td {
   border: solid;
   padding: 10px;
   text-align: center;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   font-family: 'Merriweather', serif;
 }
 
