@@ -29,7 +29,7 @@ function fillCustomersPerHourArray(index, min, max, customersPerHourArray) {
   for (var i = 0; i < storeHoursArray.length - 1; i++) {
     customersPerHourArray.push(randomNumberCustomerGenerator(min, max));
   }
-  console.log(customersPerHourArray);
+  // console.log(customersPerHourArray);
 };
 
 // For generating number of cookies per hour based on customer averages and fills an array, also totals the sum
@@ -39,7 +39,7 @@ function numberOfCookiesPerHourGenerator(index, avgCookiePerCustomer, customersP
     var numberOfCookiesPerHour = customersPerHourArray[i] * avgCookiePerCustomer;
     cookiesPerHourArray.push(parseInt(numberOfCookiesPerHour));
   }
-  console.log(cookiesPerHourArray);
+  // console.log(cookiesPerHourArray);
   for (var i = 0; i < cookiesPerHourArray.length; i++) {
     sum += cookiesPerHourArray[i];
   }
@@ -65,10 +65,6 @@ function Store(name, min, max, avg) {
 function updateStore(index, name, min, max, avg) {
   storesArray[index].customersPerHourArray = new Array();
   storesArray[index].cookiesPerHourArray = new Array();
-  storesArray[index].name = name;
-  storesArray[index].min = min;
-  storesArray[index].max = max;
-  storesArray[index].avgCookiePerCustomer = avg;
 
   fillCustomersPerHourArray(index, min, max, storesArray[index].customersPerHourArray);
   numberOfCookiesPerHourGenerator(index, avg, storesArray[index].customersPerHourArray, storesArray[index].cookiesPerHourArray);
