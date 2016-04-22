@@ -11,6 +11,19 @@ td {
   text-align: center;
   /*text-transform: uppercase;*/
   font-family: 'Merriweather', serif;
+  background-color: rgb(255, 255, 204);
+}
+
+th {
+  font-family: 'Merriweather', serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  border:solid;
+  background-color: rgb(255, 153, 0);
+}
+
+.labelName {
+  background-color: rgba(255, 153, 0, 0.3);
 }
 
 p {
@@ -19,6 +32,18 @@ p {
   margin-bottom: 0px;
 }
 
+body {
+  background-color: rgba(0, 102, 0, 0.3);
+}
+
+label {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+}
+
+.link {
+  text-decoration: none;
+}
 /*
 this can turn a tag through css into a block element
 label{

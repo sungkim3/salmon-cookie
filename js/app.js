@@ -87,6 +87,7 @@ function createBodyRows(tableBodyNode) {
     var tr = document.createElement('tr');
     tableBodyNode.appendChild(tr);
     var tdLabel = document.createElement('td');
+    tdLabel.className = 'labelName';
     tdLabel.textContent = storesArray[i].name;
     tr.appendChild(tdLabel);
     for (var j = 0; j < storeHoursArray.length; j++) {

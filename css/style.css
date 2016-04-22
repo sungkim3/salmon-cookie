@@ -1,9 +1,25 @@
-* {
+head, body{
   background-color: rgba(255, 255, 153, 0.3);
 }
-.title {
+
+header {
+  margin-top: 20px;
+  margin-bottom: 0px;
+  z-index: 10;
+}
+
+.intro {
+  position: relative;
+}
+
+h1 {
   background-color: salmon;
-  text-align: center;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  /*text-align: center;*/
   font-family: 'Oswald', sans-serif;
 }
 
@@ -16,8 +32,33 @@
   text-align: center;
 }
 
+.thoughtbubble {
+  position: relative;
+  bottom: 70px;
+}
+
 .logo {
+  background-color: rgba(102, 0, 51, 0.2);
+  border-radius: 20px;
+  padding: 10px;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 20px;
+}
+
+.firstbreak {
+  margin-top: 0px;
+}
+.cookie {
+  width: 40%;
+  height: 40%;
+}
+.cookiehype {
+  line-height: 2.4em;
+}
+.row .two.columns {
+
 }
 
 th {
@@ -42,10 +83,22 @@ p {
   color: rgb(102, 0, 51)
 }
 
-.locationList {
-  background-color: salmon;
+.two.columns {
+  display: inline;
 }
+
+.two.columns > p {
+  /*text-transform: uppercase;*/
+  align-items: flex-start;
+}
+/*.locationList {
+  background-color: salmon;
+}*/
 
 .intro {
   margin-bottom: 40px;
+}
+
+hr {
+  margin-top: 0px;
 }
