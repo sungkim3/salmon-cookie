@@ -1,7 +1,8 @@
 var storesArray = [];
 var storeHoursArray = [];
+
 // Store hours between 6AM and 8PM
-function storeHours () {
+(function storeHours () {
   for (var i = 6; i < 21; i++) {
     if (i < 12) {
       var morningTime = i + 'am';
@@ -16,35 +17,7 @@ function storeHours () {
   }
   storeHoursArray.push('Total');
   // console.log(storeHoursArray);
-}
-
-// For generating a random number with minimum and maximum values inclusively
-function randomNumberCustomerGenerator(min, max){
-  var randomNumberOfCustomers = Math.floor(Math.random() * (max - min + 1)) + min;
-  return randomNumberOfCustomers;
-}
-
-// For generating customers per hour based on minimum and maximum customer values and fills an array
-function fillCustomersPerHourArray(index, min, max, customersPerHourArray) {
-  for (var i = 0; i < storeHoursArray.length - 1; i++) {
-    customersPerHourArray.push(randomNumberCustomerGenerator(min, max));
-  }
-  console.log(customersPerHourArray);
-}
-
-// For generating number of cookies per hour based on customer averages and fills an array, also totals the sum
-function numberOfCookiesPerHourGenerator(index, avgCookiePerCustomer, customersPerHourArray, cookiesPerHourArray) {
-  var sum = 0;
-  for (var i = 0; i < storeHoursArray.length - 1; i++) {
-    var numberOfCookiesPerHour = customersPerHourArray[i] * avgCookiePerCustomer;
-    cookiesPerHourArray.push(parseInt(numberOfCookiesPerHour));
-  }
-  // console.log(cookiesPerHourArray);
-  for (var i = 0; i < cookiesPerHourArray.length; i++) {
-    sum += cookiesPerHourArray[i];
-  }
-  cookiesPerHourArray.push(sum);
-}
+})();
 
 // For brand new Store objects
 function Store(name, min, max, avg) {
@@ -56,20 +29,44 @@ function Store(name, min, max, avg) {
   this.avgCookiePerCustomer = avg;
   this.index;
 
-  fillCustomersPerHourArray (this.index, this.min, this.max, this.customersPerHourArray);
-  numberOfCookiesPerHourGenerator(this.index, this.avgCookiePerCustomer, this.customersPerHourArray, this.cookiesPerHourArray);
+  this.fillCustomersPerHourArray();
+  this.numberOfCookiesPerHourGenerator();
   storesArray.push(this);
 }
+// For generating a random number with minimum and maximum values inclusively
+Store.prototype.randomNumberCustomerGenerator = function(min, max) {
+  var randomNumberOfCustomers = Math.floor(Math.random() * (max - min + 1)) + min;
+  return randomNumberOfCustomers;
+};
+// For generating customers per hour based on minimum and maximum customer values and fills an array
+Store.prototype.fillCustomersPerHourArray = function() {
+  for (var i = 0; i < storeHoursArray.length - 1; i++) {
+    this.customersPerHourArray.push(this.randomNumberCustomerGenerator(this.min, this.max));
+  }
+};
+// For generating number of cookies per hour based on customer averages and fills an array, also totals the sum
+Store.prototype.numberOfCookiesPerHourGenerator = function() {
+  var sum = 0;
+  for (var i = 0; i < storeHoursArray.length - 1; i++) {
+    var numberOfCookiesPerHour = this.customersPerHourArray[i] * this.avgCookiePerCustomer;
+    this.cookiesPerHourArray.push(parseInt(numberOfCookiesPerHour));
+  }
+  for (var i = 0; i < this.cookiesPerHourArray.length; i++) {
+    sum += this.cookiesPerHourArray[i];
+  }
+  this.cookiesPerHourArray.push(sum);
+};
 
 // For updating existing Store objects
 function updateStore(index, name, min, max, avg) {
   storesArray[index].customersPerHourArray = new Array();
   storesArray[index].cookiesPerHourArray = new Array();
 
-  fillCustomersPerHourArray(index, min, max, storesArray[index].customersPerHourArray);
-  numberOfCookiesPerHourGenerator(index, avg, storesArray[index].customersPerHourArray, storesArray[index].cookiesPerHourArray);
+  storesArray[index].fillCustomersPerHourArray();
+  storesArray[index].numberOfCookiesPerHourGenerator();
+  // fillCustomersPerHourArray(index, min, max, storesArray[index].customersPerHourArray);
+  // numberOfCookiesPerHourGenerator(index, avg, storesArray[index].customersPerHourArray, storesArray[index].cookiesPerHourArray);
 }
-
 // For creating a row header using data on store hours
 function createRowHeader() {
   var firstRow = document.getElementById('firstRow');
@@ -79,7 +76,6 @@ function createRowHeader() {
     firstRow.appendChild(th);
   }
 }
-
 // For creating a table body filled with store names and cookiesPerHour data
 function createBodyRows(tableBodyNode) {
   // console.log('Entering createBodyRows');
@@ -97,17 +93,14 @@ function createBodyRows(tableBodyNode) {
     }
   }
 }
-
 // Deletes an exisiting table body and replaces it with a new empty table body node
 function resetTable() {
   var newTableBody = document.createElement('tbody');
   oldTableBody.parentNode.replaceChild(newTableBody, oldTableBody);
   oldTableBody = newTableBody;
 }
-
 // Handles the submit event by updating existing store data or adding new store data
 function handleStoreSubmit(event) {
-  // console.log(event);
   // prevents page reload on submit or button events!! need to have this.
   event.preventDefault();
   // event.target.(name).value the name is in reference to the name of the input on html
@@ -121,7 +114,6 @@ function handleStoreSubmit(event) {
   var newStoreMin = parseFloat(event.target.mincustomer.value);
   var newStoreMax = parseFloat(event.target.maxcustomer.value);
   var newStoreAvg = parseFloat(event.target.avgpercustomer.value);
-  // console.log(newStoreName + ', ' + newStoreMin + ', ' + newStoreMax + ', ' + newStoreAvg);
   // Compares existing store object names with submitted store name, validates with a flag
   var storeFound = false;
   var storeIndex = 0;
@@ -133,7 +125,6 @@ function handleStoreSubmit(event) {
       storesArray[i].min = newStoreMin;
       storesArray[i].max = newStoreMax;
       storesArray[i].avgCookiePerCustomer = newStoreAvg;
-      // console.log(storesArray[i]);
     }
   }
   if (storeFound) {
@@ -146,7 +137,6 @@ function handleStoreSubmit(event) {
   if (!storeFound) {
     // console.log('Store was not found');
     var createNewStore = new Store(newStoreName, newStoreMin, newStoreMax, newStoreAvg);
-    // console.log(createNewStore);
     resetTable();
     createBodyRows(oldTableBody);
   }
@@ -155,8 +145,6 @@ function handleStoreSubmit(event) {
   event.target.maxcustomer.value = null;
   event.target.avgpercustomer.value = null;
 }
-
-storeHours();
 
 var pikesPlace = new Store('Pikes Place Market', 17, 88, 5.2);
 var seaTac = new Store('SeaTac Airport', 6, 24, 1.2);

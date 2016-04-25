@@ -1,104 +1,230 @@
-head, body{
-  background-color: rgba(255, 255, 153, 0.3);
+body {
+  max-width: 852px;
+  margin: 0 auto;
 }
 
+a {
+  text-decoration: none;
+}
 header {
-  margin-top: 20px;
-  margin-bottom: 0px;
-  z-index: 10;
 }
-
-.intro {
-  position: relative;
+hr {
+  border-style: dashed;
 }
-
-h1 {
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 0px;
   background-color: salmon;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
-  padding-left: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  /*text-align: center;*/
+}
+.title {
+  margin-left: 10px;
+  margin-top: 5px;
   font-family: 'Oswald', sans-serif;
 }
-
-.navBar > li {
+.navBar > ul {
+  margin-top: 5px;
+}
+.navBar > ul > li{
   display: inline;
-  margin-right: 20px;
-  font-family: 'Merriweather', serif;
-}
-.navBar {
-  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  margin-right: 10px;
 }
 
-.thoughtbubble {
+.inrosection {
   position: relative;
-  bottom: 70px;
 }
-
-.logo {
-  background-color: rgba(102, 0, 51, 0.2);
-  border-radius: 20px;
-  padding: 10px;
+.introsection:before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  margin: 0 auto;
+  background-image: url("../images/family.jpg");
+  opacity: 0.4;
+  width: 852px;
+  height: 480px;
+}
+.introcontent {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 20px;
+  position: relative;
+  z-index: 2;
+  width: 852px;
+  height: 480px;
 }
-
-.firstbreak {
-  margin-top: 0px;
+.descriptor {
+  font-size: 38px;
+  font-family: 'Oswald', sans-serif;
+  color: rgb(204, 0, 153);
 }
-.cookie {
-  width: 40%;
-  height: 40%;
+.decorative-break {
+  width: 70px;
+  text-align: center;
+  border: solid;
+  border-color: salmon;
+  border-radius: 20px;
+  border-width: thin;
+}
+.intro {
+  font-family: 'Oswald', sans-serif;
+  color: rgb(102, 0, 102);
+}
+.heading2 {
+  background-color: salmon;
+  font-family: 'Oswald', sans-serif;
+  margin: 0px;
+}
+.heading2 > h2 {
+  margin-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .cookiehype {
-  line-height: 2.4em;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(204, 0, 153);
+  padding: 20px;
 }
-.row .two.columns {
+.cookiehype > p {
+  font-family: 'Merriweather', serif;
+  color: white;
+  text-align: center;
+}
+.cookiehype > hr {
+  width: 70px;
+  text-align: center;
+  border: solid;
+  border-color: salmon;
+  border-radius: 20px;
+  border-width: thin;
+}
+.fish-images {
+  display: flex;
+  flex-flow: row;
+}
+.fish-images > .thought {
+  align-self: flex-start;
+  margin-left: 10px;
+}
+.cookie {
+  width: 150px;
+  height: 95px;
+}
 
-}
-
-th {
-  text-transform: uppercase;
-}
-
-h2 {
-  font-family: 'Oswald', sans-serif;
-  margin-bottom: 0px;
-}
-
-td {
-  font-family: Georgia, serif;
-  color: rgb(0, 0, 153);
-  padding: 10px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
-
-p {
-  font-family: Arial, serif;
-  color: rgb(102, 0, 51)
-}
-
-.two.columns {
-  display: inline;
-}
-
-.two.columns > p {
-  /*text-transform: uppercase;*/
-  align-items: flex-start;
-}
-/*.locationList {
+.heading3 {
   background-color: salmon;
-}*/
-
-.intro {
-  margin-bottom: 40px;
+  font-family: 'Oswald', sans-serif;
 }
+.heading3 > h2 {
+  margin-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.location-list {
+  display: flex;
+  background-color: rgb(102, 0, 102);
+  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
+}
+.location-list > img {
+  height: 200px;
+  width: 200px;
+  margin-left: 10px;
+}
+.location-list > div {
+  margin-left: 10px;
+}
+.location-list > div > p {
+  font-family: 'Oswald', sans-serif;
+  color: rgb(255, 204, 204);
+}
+.location-list > div > .store-name {
+  color: white;;
+}
+.heading4 {
+  background-color: salmon;
+  font-family: 'Oswald', sans-serif;
+}
+.heading4 > h2 {
+  margin-left:10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.activities {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  justify-content: space-around;
 
-hr {
-  margin-top: 0px;
+}
+.family-fun {
+  background-color: rgb(255, 204, 204);
+  font-family: 'Merriweather', serif;
+  color: rgb(102, 0, 102);
+  font-size: 14px;
+}
+.family-fun > p {
+  padding-top: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.baking-cookies {
+  display: flex;
+  align-items: center;
+}
+.baking-cookies > img {
+  margin-left: 10px;
+  margin-right: 10px;
+  max-width: 150px;
+
+}
+.baking-description {
+  margin-left: 10px;
+  margin-right: 10px;
+  flex-flow: column;
+}
+.fishing-salmon {
+  display: flex;
+  align-items: center;
+}
+.fishing-salmon > p {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.fishing-salmon > img {
+  margin-right: 10px;
+}
+.store {
+  display: flex;
+  align-items: center;
+}
+.store > p {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.store > img {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.family-fun > hr {
+  width: 400px;
+  text-align: center;
+  border: solid;
+  border-color: salmon;
+  border-radius: 20px;
+  border-width: thin;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.top-link {
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
 }
